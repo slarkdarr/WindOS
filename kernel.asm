@@ -10,8 +10,6 @@ global _makeInterrupt21
 global _imageFile
 extern _handleInterrupt21
 
-_imageFile: incbin "image.bin"
-
 ;void putInMemory (int segment, int address, char character)
 _putInMemory:
 	push bp
@@ -48,6 +46,7 @@ intr:	int 0x00	;call the interrupt (00 will be changed above)
 	pop bp
 	ret
 
+
 ;void makeInterrupt21()
 ;this sets up the interrupt 0x21 vector
 ;when an interrupt 0x21 is called in the future, 
@@ -82,4 +81,4 @@ _interrupt21ServiceRoutine:
 
 	iret
 
-
+_imageFile: incbin "image.bin"

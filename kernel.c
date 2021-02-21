@@ -3,6 +3,7 @@ void clearscreen();
 void printBlock();
 void printLogo(char* c,int baris, int kolom, int warna);
 void printString(char *string);
+void printString2(char *string, int baris, int kolom);
 void readString(char *string);
 void clear(char *buffer, int length);
 
@@ -12,6 +13,7 @@ int main () {
 
     handleInterrupt21(3, 0, 0, 0);
     readString(string);
+    clear(0xA0000, 4098);
 
     interrupt(0x10, 0x3, 0,0,0);
     clearscreen();
@@ -19,6 +21,13 @@ int main () {
     printString("Test"); //ga keprint
 	
 	readString(string);
+
+    printLogo("Hai",5,5,0xD);
+
+    putInMemory(0xB000, 320+0x8000, 'H');
+	putInMemory(0xB000, 320+0x8001, 0xC);
+
+    printString2("Test lagi", 3, 0);
 
   while (1);
 }
@@ -56,7 +65,21 @@ void printString(char* string){
 	}
 }
 
+void printString2(char* string, int baris, int kolom){
+	int i, address;
+
+    i = 0;
+    address = baris*80*2+2*kolom;
+	while (string[i] != '\0'){
+		char ch = string[i];
+		putInMemory(0xB000, address+0x8000, ch);
+        putInMemory(0xB000, address+0x8001, 0xC);
+		i++;
+	}
+}
+
 void readString(char* string){
+    char* testVar = ['s', 'h', 'i', 'f', 'a'];
     int dashn = 0xa;	// \n character new line biasa
     int endStr = 0x0; 	// blank
     int dashr = 0xd;	// 
@@ -101,7 +124,9 @@ void readString(char* string){
     }
     string[i] = '\0';
     printString(enter);
-    printString(string);
+    printLogo(string, 1, 0, 0xE);
+
+    printLogo(testVar, 5, 0, 0xC);
     
 }
 
@@ -142,4 +167,11 @@ void printBlock() {
         }
     }
 
+}
+
+void clear(char* buff, int len){
+	int i;
+	for(i=0;i<len;i++){
+		buff[i] = 0x0;
+	}
 }
