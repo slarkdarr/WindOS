@@ -1,3 +1,15 @@
+org 0x8000
+bits 16
+
+mov ah,0
+mov al,13h
+int 0x10
+
+mov si,imageFile
+call drawImage
+
+jmp $
+
 drawImage:
 	pusha
 	xor ax, ax
@@ -19,3 +31,10 @@ drawImage:
 	jnz .for_x                      ;repeat for x-length
 	popa                            ;restore everything
 	ret
+	
+imageFile : incbin "image.bin"
+
+%assign usedMemory ($-$$)
+%assign usableMemory (512*16)
+%warning [usedMemory/usableMemory] Bytes used
+times (512*16)-($-$$) db 0

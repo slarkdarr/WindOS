@@ -9,6 +9,10 @@ global _interrupt
 global _makeInterrupt21
 extern _handleInterrupt21
 
+;-----------------------------------------------------
+
+imageFile : incbin "image.bin"
+
 ;void putInMemory (int segment, int address, char character)
 _putInMemory:
 	push bp

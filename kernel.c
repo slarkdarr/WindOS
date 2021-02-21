@@ -1,17 +1,28 @@
 void handleInterrupt21 (int AX, int BX, int CX, int DX);
 void clearscreen();
+void Logo();
 void printLogo(char* c,int baris, int kolom, int warna);
 void printString(char *string);
 void readString(char *string);
 void clear(char *buffer, int length);
 
 
+
 int main () {
 	char* string;
 
 	clearscreen();
-	printLogo("Hai",0,0,0xD);
+    //putInMemory(0xA000, 0x0000+(320*2)+1, 0xD);
+    //Logo();
+	//printLogo("Hai",0,0,0xE);
 
+    putInMemory(0xB000, 0x8000, 'F');
+    putInMemory(0xB000, 0x8001, 0xD);
+    
+    
+    //interrupt(0x10, 0x13, 0, 0, 0);
+
+    
 	
 	readString(string);
 
@@ -19,12 +30,31 @@ int main () {
 }
 
 void clearscreen(){
-  /* Membersihkan tulisan x86 blablabla dari layar */
+  /* Membersihkan layar */
   int i=0;
   for(i=0; i<25; i++)
     printLogo("                                                                                          ",i,0,0x02);
 }
 
+void Logo(){
+    printLogo("                                        __           ",0,0,0xD);
+    printLogo("                 ,-_                  (`  ).         ",1,0,0xD);
+    printLogo("                 |-_'-,              (     ).        ",2,0,0xD);
+    printLogo("                 |-_'-'           _(        '`.      ",3,0,0xD);
+    printLogo("        _        |-_'/        .=(`(      .     )     ",4,0,0xD);
+    printLogo("       /;-,_     |-_'        (     (.__.:-`-_.'      ",5,0,0xD);
+    printLogo("      /-.-;,-,___|'          `(       ) )            ",6,0,0xD);
+    printLogo("     /;-;-;-;_;_/|\\_ _ _ _ _   ` __.:'   )           ",7,0,0xD);
+    printLogo("        x_( __`|_P_|`-;-;-;,|        `--'            ",8,0,0xD);
+    printLogo("        |\\ \\    _||   `-;-;-'                        ",9,0,0xD);
+    printLogo("        | \\   -_|.      '-'                         ",10,0,0xD);
+    printLogo("        | /   /-_| `                                 ",11,0,0xD);
+    printLogo("        |/   ,'-_|  \\                                ",12,0,0xD);
+    printLogo("        /____|'-_|___\\                               ",13,0,0xD);
+    printLogo(" _..,____]__|_\\-_'|_[___,.._                         ",14,0,0xD);
+    printLogo("'                          ``'--,..,.                ",15,0,0xD);
+
+}
 
 void printLogo(char* c,int baris, int kolom, int warna){
 	/* Menulis string pada baris dan kolom dengan warna sesuai parameter fungsi */
@@ -43,6 +73,7 @@ void printLogo(char* c,int baris, int kolom, int warna){
 }
 
 void printString(char* string){
+    /* Menulis string*/
 	int i =0;
 	while (string[i] != '\0'){
 		int ch = string[i];
