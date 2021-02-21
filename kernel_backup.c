@@ -1,22 +1,23 @@
 void handleInterrupt21 (int AX, int BX, int CX, int DX);
 void clearscreen();
-void printBlock();
 void printLogo(char* c,int baris, int kolom, int warna);
 void printString(char *string);
 void readString(char *string);
 void clear(char *buffer, int length);
+void printBlock();
 
 
 int main () {
 	char* string;
 
-    handleInterrupt21(3, 0, 0, 0);
-    readString(string);
+	clearscreen();
+	interrupt(0x10, 0x13, 0,0,0);
+	printBlock();
+	readString(string);
 
-    interrupt(0x10, 0x3, 0,0,0);
-    clearscreen();
-	printLogo("Hai",5,5,0xD); //ga keprint
-    printString("Test"); //ga keprint
+	interrupt(0x10, 0x3, 0xE,0xE,0xE);
+	printLogo("Hai",0,2,0xD);
+
 	
 	readString(string);
 
@@ -33,7 +34,7 @@ void clearscreen(){
 
 void printLogo(char* c,int baris, int kolom, int warna){
 	/* Menulis string pada baris dan kolom dengan warna sesuai parameter fungsi */
-    int i, b, alamat;
+	int i, b, alamat;
 	i = 0;
 
 	alamat = (baris)*80*2 + 2*kolom;
@@ -96,7 +97,7 @@ void readString(char* string){
     			string[i] = CC;
     			i++;
     			interrupt(0x10, 0xE*256+CC, 0, 0, 0);
-    				
+		
     	}
     }
     string[i] = '\0';
@@ -106,40 +107,24 @@ void readString(char* string){
 }
 
 void handleInterrupt21 (int AX, int BX, int CX, int DX){	
-    switch (AX) {
-        case 0:
-            printString(BX);
-            break;
-        case 1:
-            readString(BX);
-            break;
-        case 3:
-            printBlock();
-            break;
-        default:
-            printString("Invalid interrupt");
-    }
-
-        
+	switch (AX) {
+		case 0:
+			printString(BX);
+			break;
+		case 1:
+			readString(BX);
+			break;
+		default:
+			printString("Invalid interrupt");
+	}   
 }
 
 void printBlock() {
-    extern char imageFile;
-	char* image = &imageFile;
-    int xOffset, yOffset;
+    int startingOffset = 0;
     int i, j;
-	int h;
-	//int address;
-
-    interrupt(0x10, 0x13, 0, 0, 0);
-	xOffset = 100;
-	yOffset = 0;
-	h = 2;
-    for (i=0; i<image[0]; i++) {
-        for (j=0; j<image[1]; j++) {
-            putInMemory(0xA000, 0x0000+(320*(j+yOffset))+i+xOffset, image[h]);
-			h++;
+    for (i=0; i<64; i++) {
+        for (j=0; j<64; j++) {
+            putInMemory(0xA000, 0x0000+(320*(j+startingOffset))+i, 0xD);
         }
     }
-
 }

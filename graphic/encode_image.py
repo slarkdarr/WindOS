@@ -2,8 +2,8 @@
 from PIL import Image                                         #Import Image from Pillow
 
 paletteFile = "colors.png"                                    #palette the BIOS uses
-convertFile = "fox.png"                                       #image to turn into a binary
-outputFile  = "image.bin"                                     #name of output file
+convertFile = "fox_kebalik.png"                                       #image to turn into a binary
+outputFile  = "image2.bin"                                     #name of output file
 
 pal = Image.open(paletteFile).convert('RGB')
 palette = pal.load()                                          #load pixels of the palette

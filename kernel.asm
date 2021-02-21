@@ -7,7 +7,10 @@
 global _putInMemory
 global _interrupt
 global _makeInterrupt21
+global _imageFile
 extern _handleInterrupt21
+
+_imageFile: incbin "image.bin"
 
 ;void putInMemory (int segment, int address, char character)
 _putInMemory:
@@ -78,3 +81,5 @@ _interrupt21ServiceRoutine:
 	pop dx
 
 	iret
+
+
