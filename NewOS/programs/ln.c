@@ -16,11 +16,6 @@ int main(){
         // printString(&args[32]);
         readFile(Buffer,&args[32],&success,cD[0]);
         if (success == 1){
-            printString(&args[32]);
-            printString(" : \r\n");
-            printString(Buffer);
-            printString("\r\n");
-
             //Tulis file
             writeFile(Buffer,&args[64],&success,cD[0]);
             if (success == 1){
