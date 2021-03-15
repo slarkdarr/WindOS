@@ -8,9 +8,9 @@ int main(){
     clear(Buffer,512);
     readSector(cD,0x104);
     readSector(args,0x105);
-    if (args[32] == 0x0){
+    if (args[32] == 0x0 || args[64] == 0x0){
         printString("Masukkan nama filenya bro\r\n");
-    } else{
+    } else {
         // printString(&args[32]);
         readFile(Buffer,&args[32],&success,cD[0]);
         if (success == 1){
@@ -24,11 +24,15 @@ int main(){
     }
 
     //Dari editor
-    writeFile(file,filename,&succ,cD[0]);
-    if (succ == 1){
+    writeFile(Buffer,&args[64],&success,cD[0]);
+    if (success == 1){
         printline("Successfully saved");
     }
     else{
         printline("Error saving");
     }
+
+    clearScreen();
+    executeProgram("shell",0x2000,&success,0xFF);
+    
 }
