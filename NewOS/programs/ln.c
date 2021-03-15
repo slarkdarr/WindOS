@@ -2,7 +2,7 @@
 
 int main(){
 
-    //Dari cat
+    //Baca file
     char args[512], Buffer[512 * 16], cD[512];
     int success;
     clear(Buffer,512);
@@ -23,7 +23,7 @@ int main(){
         }
     }
 
-    //Dari editor
+    //Tulis file
     writeFile(Buffer,&args[64],&success,cD[0]);
     if (success == 1){
         printline("Successfully saved");
@@ -34,5 +34,5 @@ int main(){
 
     clearScreen();
     executeProgram("shell",0x2000,&success,0xFF);
-    
+
 }
