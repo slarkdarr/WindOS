@@ -7,6 +7,5 @@ int strlen(char *s){
         p++;
         i++;
     }
-    // printChar(i);
     return i;
 }

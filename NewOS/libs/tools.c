@@ -7,7 +7,6 @@ int strlen(char *s){
         p++;
         i++;
     }
-    // printChar(i);
     return i;
 }
 
@@ -20,9 +19,6 @@ int strComp(char *a,char* b){
     else if (pjb > pja) return 0;
     else {
         for (i = 0; i < pja; i ++){
-            // printChar(a[i]);
-            // printString(" ");
-            // printChar(b[i]);
             if(a[i] != b[i]) return 0;
         }
         return 1;

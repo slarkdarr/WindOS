@@ -12,7 +12,6 @@ void readFile(char *buffer, char* filename, int *success, char parentIndex){
 
     dirIdx = getPathIndex(filename,dir,parentIndex);
     if (dirIdx == 0xFE){ // not found
-        // printString("notfound\r\n");
         *success = -1;
         return;
     } 

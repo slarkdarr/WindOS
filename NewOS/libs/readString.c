@@ -11,7 +11,7 @@ void readString(char *string){
     readSector(history + 1024, 0x108);
 
 
-    //ini nyari sektor yang kosong
+    //cari sektor kosong
     for (;j<=2;j++){
         if (!history[512*j]){
             break;
@@ -23,21 +23,20 @@ void readString(char *string){
         tes = interrupt(0x16,0,0,0,0);
         curchar = (char) tes;
         char1 = (char) (tes >> 8);
-        if (curchar==0xD) //0xD = ENTER
+        if (curchar==0xD) //Enter key
         {
             string[i] = 0x0;
-            if (!i) return;//kalau dia itu stringnya cuma enter
+            if (!i) return; //Empty input
 
-            if (max==3){//kalau sector full
-                //geser semua sektor
+            if (max==3){ //Sector penuh
                 copy(history+512,history+512*2,history);
                 copy(history+512*2,history+512*3,history+512);
-                //isi sektor terakhir
+                //Last sector
                 copy(string,string+512,history+512*2);
     
             }
             else{
-                //langsung tambahin di sektor yang tersedia
+                //Sektor tersedia
                 copy(string,string+512,history+512* max);
             }
             writeSector(history,0x106);
@@ -46,7 +45,7 @@ void readString(char *string){
             return;
             
         }
-        else if (curchar ==0x8){ // 0x8 = backspace
+        else if (curchar ==0x8){ //Backspace key
             if(i!=0){
                 i-=1;
                 string[i] = '\0';
@@ -54,8 +53,7 @@ void readString(char *string){
                 
             }
         }
-        else if (char1 == 0x48 || char1 == 0x50){ // up down
-            // printString("up/down");
+        else if (char1 == 0x48 || char1 == 0x50){ //Up key or Down key
             j += char1 == 0x48 ? -1 : 1;
             if (j < 0 || j > max){
                 j += char1 == 0x48 ? 1 : -1;
@@ -65,8 +63,6 @@ void readString(char *string){
                     string[0] = 0;
                 }else{
                     copy(history + j*512, history + (j+1)*512, string);
-                    // printString("this :");
-                    // printline(string);
                 }
                 while (i--){
                     printString("\b \b");
@@ -74,7 +70,7 @@ void readString(char *string){
                 i = 0;
                 while (string[i])
                 {
-                    interrupt(0x10, 0xE00 + string[i], 0, 0, 0); // printChar string[i]
+                    interrupt(0x10, 0xE00 + string[i], 0, 0, 0);
                     i++;
                 }
             }

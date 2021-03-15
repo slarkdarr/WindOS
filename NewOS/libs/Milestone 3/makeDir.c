@@ -10,20 +10,17 @@ void makeDir(char* foldername,int* success,char parentIndex){
     slash = -1;
     i=0;
     ada = 0;
-    // printline(foldername);
     while(foldername[i] != 0x0){
         if (foldername[i] == '/'){
             slash = i;
         }
         i++;
     }
-    // printString("im here now");
-    // print(foldername);
+    // printString("1");
     if (slash == -1){
         dirIdx = getPathIndex(foldername,dir,parentIndex);
         if (dirIdx != 0xFE){
-            *success = -1; //kalo file udh ada error
-            // printString("\r\nthere");
+            *success = -1; //Error
             return;
         }
         dirIdx = parentIndex;
@@ -34,13 +31,11 @@ void makeDir(char* foldername,int* success,char parentIndex){
         dirname[j] = 0x0;
         dirIdx = getPathIndex(dirname,dir,parentIndex);
         if (dirIdx == 0xFE){
-            *success = -4; // kalo bapaknya gada error
-            // printString("\r\nnofa there");
+            *success = -4; // Parent dir nggak error
             return;
         }
     }
-    // printline("hai");
-    // printline(foldername+slash);
+    // printline("2");
 
     if (strlen(foldername) - strlen(dirname) > 14){
         *success = -5;
@@ -56,8 +51,6 @@ void makeDir(char* foldername,int* success,char parentIndex){
                 j++;
             }
             dir[i+2+j] = 0x0;
-            // printString(foldername);
-            // printString(" ditambah\r\n");
             writeSector(dir,0x101);
             writeSector(dir+512,0x102);
             return;

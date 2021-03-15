@@ -12,10 +12,7 @@ char getDirIndex(char *path, char* dir, char parentIndex){
     for (i = 0; i < 64; i ++){
         if (dir[i*16] == parentIndex){
             if (strComp(path,dir + (i*16 + 2)) || strCompLimit(path,dir + (i*16 + 2),14)){
-                // printString("ada");
-                // for (j = 0; j <14;j++){
-                //     printChar(dir+i*16+2+j);
-                // }
+                // exist
                 return i;
             }
         }

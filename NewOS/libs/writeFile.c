@@ -16,20 +16,20 @@ void writeFile(char*buffer, char* filename, int* success, char parentIndex){
     clear(debug,10);
     slash = -1;
     i=0;
-    // printString("im here");
+    // printString("1");
     while(filename[i] != 0x0 && i < 14){
         if (filename[i] == '/'){
             slash = i;
         }
         i++;
     }
-    // printString("im here now");
+    // printString("2");
 
     if (slash == -1){
         dirIdx = getPathIndex(filename,dir,parentIndex);
         if (dirIdx != 0xFE){
-            *success = -1; //kalo file udh ada error
-            // printString("\r\nthere");
+            *success = -1; //kalo error
+            // printString("3");
             return;
         }
         dirIdx = parentIndex;
@@ -38,20 +38,17 @@ void writeFile(char*buffer, char* filename, int* success, char parentIndex){
             dirname[j] = filename[j];
         }
         dirname[j] = 0x0;
-        // printString(dirname);
         dirIdx = getPathIndex(dirname,dir,parentIndex);
-        // printChar(dirIdx);
         debug[0]=dirIdx;
-        // printString("back");
         if (dirIdx == 0xFE || dir[dirIdx*16 + 1] != 0xFF){
-            *success = -4; // kalo bapaknya gada error
+            *success = -4; // parent dir nggak ada error
             printString("Destination incorrect\r\n");
             return;
         }
     }
 
     if (*success != -1 && *success != -4){
-        // printString("try");
+        // printString("4");
         k=0;
         while (dir[k*16] != 0x0 && dir[k*16+2] != 0x0 && k < 64){
             k++;
@@ -68,11 +65,10 @@ void writeFile(char*buffer, char* filename, int* success, char parentIndex){
             *success = -3;
             return;
         }
-        // printString("hoi");
+        // printString("5");
         dir[k*16] = dirIdx;
         dir[k*16 + 1] = l;
         copy(dir+k*16, dir+k*16+10,debug);
-        // printString(debug);
         iter = 0;
         while (iter < 14 && filename[slash + 1 + iter] != 0x0){
             dir[k*16 + 2 + iter] = filename[slash + 1 + iter];
@@ -107,7 +103,7 @@ void writeFile(char*buffer, char* filename, int* success, char parentIndex){
         writeSector(dir+512,0x102);
         writeSector(sector,0x103);
         *success = 1;
-        // printString("SAKSES");
+        // printString("6");
         return;
     }
 }
