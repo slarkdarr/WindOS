@@ -1,35 +1,4 @@
-// #include "../library.h"
-
-void printChar(char c){
-    if (c == 0xD){
-        interrupt(0x10, 0xE00 + '\r',0,0,0);
-        interrupt(0x10, 0xE00 + '\n',0,0,0);
-    }
-    else if (c == 0xA){
-
-    }
-    else{
-    interrupt(0x10, 0xE00 + c,0,0,0);
-    }
-}
-
-void printString(char *string){
-    int i = 0;
-    while(string[i] != '\0'){
-        printChar(string[i]);
-        i++;
-    }
-}
-
-void copy(char *from, char *to, char *result)
-{
-    int i;
-    for (i = 0; i < to - from; i++)
-    {
-        result[i] = from[i];
-    }
-    result[i] = 0;
-}
+#include "../library.h"
 
 void readString(char *string){
     int  j = 0;
@@ -117,20 +86,3 @@ void readString(char *string){
         }
     }
 }
-
-void readSector(char *buffer, int sector)
-{
-    interrupt(0x13, 0x201, buffer, div(sector, 36) * 0x100 + mod(sector, 18) + 1, mod(div(sector, 18), 2) * 0x100);
-}
-
-void writeSector(char *buffer, int sector)
-{
-    interrupt(0x13, 0x301, buffer, div(sector, 36) * 0x100 + mod(sector, 18) + 1, mod(div(sector, 18), 2) * 0x100);
-}
-
-void printline(char *string){
-    printString(string);
-    printString("\r\n");    
-}
-
-// void clearScreen();

@@ -1,6 +1,6 @@
-#include "../library.h"
+// #include "../library.h"
 
-void makeDir(char* foldername,int* success,char parentIndex){
+void makeDir(char* foldername,int* success,char parentIndex) {
     int ada,sama,i,j,slash;
     char dir[1024];
     char dirname[14];

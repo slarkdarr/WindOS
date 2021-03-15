@@ -1,4 +1,4 @@
-#include "../library.h"
+// #include "../library.h"
 
 void deleteFileIdx(char Idx,char* dir,int*success){
     char sector[512], map[512];
