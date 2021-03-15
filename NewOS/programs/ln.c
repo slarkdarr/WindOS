@@ -32,7 +32,6 @@ int main(){
         printline("Error saving");
     }
 
-    clearScreen();
     executeProgram("shell",0x2000,&success,0xFF);
 
 }
