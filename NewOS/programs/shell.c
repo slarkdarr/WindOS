@@ -2,13 +2,12 @@
 
 // 0x104 buat naruh currentDirectory, 0x105 buat naruh argument argument buat passing tanpa parameter, 0x106 buat history command
 
-
 void printDir(char curDir); 
 void splitArgs(char *path,char* result);
 
 int main(){
     int success, runHere, count;
-    char read[16 * 32];//16 maksimal argumen, 32 maksimum panjang argumen
+    char read[16 * 32]; // 16 maksimal argumen, 32 maksimum panjang argumen
     char cD[512], args[512];
     char rundir;
     // char* lastArg;
@@ -43,7 +42,6 @@ int main(){
             printString("Invalid Command\r\n");
         }
     }
-
 }
 
 void printDir(char curDir){

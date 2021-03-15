@@ -1,6 +1,5 @@
 #include "../library.h"
 
-
 int main(){
     char file[512*16], cD[512];
     char filename[40],args[512];
