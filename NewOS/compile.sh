@@ -68,7 +68,7 @@ for program in ${arr[*]};
     done
 
 
-bcc -ansi -c -o ./o/shell.o ./programs/shellmain.c
+bcc -ansi -c -o ./o/shell.o ./programs/shell.c
 
 ld86 -o ./bin/shell -d ./o/shell.o lib_asm.o ./o/readFile.o ./o/writeFile.o  ./o/div.o ./o/mod.o ./o/printChar.o ./o/printString.o ./o/copy.o ./o/readString.o ./o/readSector.o ./o/writeSector.o ./o/printline.o ./o/getDirIndex.o ./o/getPathIndex.o ./o/clear.o ./o/clearScreen.o ./o/strLen.o ./o/strComp.o ./o/strCompLimit.o ./o/executeProgram.o
 

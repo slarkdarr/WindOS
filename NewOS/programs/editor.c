@@ -69,19 +69,6 @@ int main(){
             clearScreen();
             executeProgram("shell",0x2000,&succ,0xFF);
         }
-        // else if (next == 0x13 && existing){
-        //     printString("\r\n");
-        //     if (ada) printString("Updating ");
-        //     else printString("Saving as ");
-        //     printline(filename);
-        //     if (ada){
-        //         delete(filename,&succ,cD[0]);
-        //     }
-        //     succ = 0;
-        //     writeFile(file,filename,&succ,cD[0]);
-        //     clearScreen();
-        //     executeProgram("shell",0x2000,&succ,0xFF);
-        // }
         else if (next == 0x8){
             if (i!=0){
                 i-=1;

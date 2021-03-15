@@ -17,7 +17,6 @@ int main(){
     readSector(cD,0x104);
 
     if(cD[0] == 0x0){
-        // printString("defaulted");
         cD[0] = 0xFF;
     }
 
@@ -38,8 +37,7 @@ int main(){
         writeSector(cD,0x104);
         writeSector(args,0x105);
         rundir = (read[0] == '.' && read[1] == '/');
-        //interrupt gabolehnya di utility cd cat dll kan? disini boleh?
-        // interrupt(0x21,((rundir ? cD[0] : 0xFF) << 8) + 0x06,rundir ? args+2 : args,0x3000,&success);
+
         executeProgram(rundir ? &args[2] : args,0x3000,&success,rundir ? cD[0] : 0xFF);
         if (success != 1 && *args){
             printString("Invalid Command\r\n");
@@ -56,17 +54,14 @@ void printDir(char curDir){
     if (curDir != 0xFF){
         parent = getDirIndex("..\0",dir,curDir);
         if (parent != 0xFF){
-            printDir(parent); //rekursif ampe currDir 0xFF
+            printDir(parent); //rekursif sampai currDir 0xFF
         }
     }
     interrupt(0x21,0x0,"/",0x0,0x0);
     if (curDir != 0xFF){ //print currDir nya
         interrupt(0x21,0x0,&dir[curDir*16 + 2],0x0,0x0);
     }
-    // interrupt(0x21,0x0,dir + currDir*16 + 2,0x0,0x0);
-
 }
-
 
 void splitArgs(char *path, char *result)
 {
