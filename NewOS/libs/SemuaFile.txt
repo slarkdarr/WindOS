@@ -21,6 +21,7 @@ makeDir.c
 delete.c
 deleteIdx.c
 deleteFolder.c
+deleteFileIdx.c
 deleteFolderIdx.c
 listContent.c
 getDirIndex.c
