@@ -15,7 +15,7 @@ void deleteFileIdx(char Idx,char* dir,int*success);
 
 // void makeDir(char *foldername, char *success, char parentIndex);
 void delete(char* filename, int* success, char parentIndex);
-// void deleteIdx(char Idx, char* dir,int* success);
+void deleteIdx(char Idx, char* dir,int* success);
 // void deleteFolder(char *path, char *resultCode, char parentIndex);
 // void deleteFolderIdx(char Idx);
 // void listContent(char Idx,char* dir);
