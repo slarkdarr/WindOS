@@ -7,7 +7,7 @@ int main(){
     readSector(cD,0x104);
     readSector(args,0x105);
     if (args[32] == 0x0){
-        printString("Masukkan nama filenya bro\r\n");
+        printString("Please input a file name\r\n");
     }else{
         // printString(&args[32]);
         readFile(Buffer,&args[32],&success,cD[0]);
@@ -17,7 +17,7 @@ int main(){
             printString(Buffer);
             printString("\r\n");
         }else{
-            printline("Something is wrong\r\n");
+            printline("File not found\r\n");
         }
     }
     executeProgram("shell\0",0x2000,&success,0xFF);

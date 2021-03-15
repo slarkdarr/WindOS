@@ -26,12 +26,12 @@ int main(){
     }
     clearScreen();
     i=0;
-    printline("Editor text buatan rumahan");
+    printline("WindOS Text Editor");
     if (existing) {
-        printString("Editing :");
+        printString("File:");
         printline(filename);
     }
-    printline("CTRL C = quit, CTRL S = save");
+    printline("CTRL+C: quit, CTRL+S: save");
     if (succ == 1){
             ada = 1;
             i=0;
@@ -54,7 +54,7 @@ int main(){
             printline("");
             // printline(filename);
             if (strlen(filename) > 40){
-                printString("Kepanjangan, Gagal\r\n");
+                printString("Error saving\r\n");
             }
             else{
                 writeFile(file,filename,&succ,cD[0]);

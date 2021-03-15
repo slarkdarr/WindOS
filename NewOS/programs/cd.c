@@ -17,10 +17,10 @@ int main(){
     }else{
         idx = getPathIndex(&args[32],dir,cD[0]);
         if (idx == 0xFE){
-            printString("Directory not found\r\n");
+            printString("Folder not found\r\n");
         }
         else if (idx != 0xFF && dir[idx*16+1] != 0xFF){
-            printString("Not a folder....\r\n");
+            printString("Not a folder\r\n");
         }
         else{
             cD[0] = idx;

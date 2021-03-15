@@ -22,7 +22,7 @@ int main(){
     }
 
     if (idx == 0xFE){
-        printString("Unknown Directory\r\n");
+        printString("Folder not found\r\n");
     }else{
         i = 0;
         // if (idx == 0xFF) printString("root\r\n");

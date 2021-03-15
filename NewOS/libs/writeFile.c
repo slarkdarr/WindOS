@@ -42,7 +42,7 @@ void writeFile(char*buffer, char* filename, int* success, char parentIndex){
         debug[0]=dirIdx;
         if (dirIdx == 0xFE || dir[dirIdx*16 + 1] != 0xFF){
             *success = -4; // parent dir nggak ada error
-            printString("Destination incorrect\r\n");
+            printString("Folder not found\r\n");
             return;
         }
     }

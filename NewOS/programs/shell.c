@@ -39,7 +39,7 @@ int main(){
 
         executeProgram(rundir ? &args[2] : args,0x3000,&success,rundir ? cD[0] : 0xFF);
         if (success != 1 && *args){
-            printString("Invalid Command\r\n");
+            printString("Invalid command\r\n");
         }
     }
 }
