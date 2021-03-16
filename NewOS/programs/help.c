@@ -7,7 +7,7 @@ int main(){
     printline("Here are the available commands: ");
     printline("- ls");
     printline("- ln [file1] [file2]");
-    printline("- clear");
+    printline("- cls");
     printline("- cat [file]");
     printline("- cd [path or directory]");
     printline("- echo [text]");
