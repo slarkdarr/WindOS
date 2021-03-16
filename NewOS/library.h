@@ -1,24 +1,17 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
-// #include "libs/tools.h"
-// #include "libs/textIO.h"
-// #include "libs/fileIO.h"
-// #include "libs/folderIO.h"
-// #include "libs/math.h"
+void handleInterrupt21 (int AX, int BX, int CX, int DX);
+void defaultDir();
+void printBootScreen();
+void printScreen (char a[50], int pos, int clr);
+void _executeProgram(char* filename, int segment, int* success, char parentIndex);
 
 void moveFile(char *path, char *targetFolder, int *success, char parentIndex);
 void copyFile(char *path, char *targetFolder, int *success, char parentIndex);
 void writeFile(char *buffer, char *path, int *success, char parentIndex);
 void readFile(char *buffer, char *path, int *success, char parentIndex);
-// void deleteFileIdx(char Idx,char* dir,int*success);
 
-// void makeDir(char *foldername, char *success, char parentIndex);
-// void delete(char* filename, int* success, char parentIndex);
-// void deleteIdx(char Idx, char* dir,int* success);
-// void deleteFolder(char *path, char *resultCode, char parentIndex);
-// void deleteFolderIdx(char Idx);
-// void listContent(char Idx,char* dir);
 char getDirIndex(char *path, char* dir, char parentIndex);
 char getPathIndex(char*path, char* dir, char parentIndex);
 

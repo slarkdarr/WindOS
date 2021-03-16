@@ -13,6 +13,16 @@ dd if=map.img of=system.img bs=512 count=1 seek=256 conv=notrunc
 dd if=files.img of=system.img bs=512 count=2 seek=257 conv=notrunc
 dd if=sectors.img of=system.img bs=512 count=1 seek=259 conv=notrunc
 
+bcc -ansi -c -o ./o/handleInterrupt21.o ./libs/handleInterrupt21.c
+
+bcc -ansi -c -o ./o/_executeProgram.o ./libs/_executeProgram.c
+
+bcc -ansi -c -o ./o/printScreen.o ./libs/printScreen.c
+
+bcc -ansi -c -o ./o/defaultDir.o ./libs/defaultDir.c
+
+bcc -ansi -c -o ./o/printBootScreen.o ./libs/printBootScreen.c
+
 bcc -ansi -c -o ./o/readFile.o ./libs/readFile.c
 
 bcc -ansi -c -o ./o/writeFile.o ./libs/writeFile.c
@@ -56,7 +66,7 @@ gcc loadFile.c -o ./bin/loadFile
 echo installing kernel.c
 nasm -f as86 kernel.asm -o kernel_asm.o
 bcc -ansi -c -o kernel.o kernel.c
-ld86 -o kernel -d kernel.o kernel_asm.o ./o/readFile.o ./o/writeFile.o  ./o/div.o ./o/mod.o ./o/printChar.o ./o/printString.o ./o/copy.o ./o/readString.o ./o/readSector.o ./o/writeSector.o ./o/printline.o ./o/getDirIndex.o ./o/getPathIndex.o ./o/clear.o ./o/clearScreen.o ./o/strLen.o ./o/strComp.o ./o/strCompLimit.o ./o/executeProgram.o
+ld86 -o kernel -d kernel.o kernel_asm.o ./o/handleInterrupt21.o ./o/_executeProgram.o ./o/printScreen.o ./o/defaultDir.o ./o/printBootScreen.o ./o/readFile.o ./o/writeFile.o  ./o/div.o ./o/mod.o ./o/printChar.o ./o/printString.o ./o/copy.o ./o/readString.o ./o/readSector.o ./o/writeSector.o ./o/printline.o ./o/getDirIndex.o ./o/getPathIndex.o ./o/clear.o ./o/clearScreen.o ./o/strLen.o ./o/strComp.o ./o/strCompLimit.o ./o/executeProgram.o
 dd if=kernel of=system.img bs=512 seek=1 conv=notrunc
 
 arr=(help ls ln cls cat cd echo wim)
@@ -64,13 +74,13 @@ for program in ${arr[*]};
     do
         echo installing $program
         bcc -ansi -c -o ./o/$program.o ./programs/$program.c
-        ld86 -o ./bin/$program -d ./o/$program.o lib_asm.o ./o/readFile.o ./o/writeFile.o  ./o/div.o ./o/mod.o ./o/printChar.o ./o/printString.o ./o/copy.o  ./o/readString.o ./o/readSector.o ./o/writeSector.o ./o/printline.o ./o/getDirIndex.o ./o/getPathIndex.o ./o/clear.o ./o/clearScreen.o ./o/strLen.o ./o/strComp.o ./o/strCompLimit.o ./o/executeProgram.o
+        ld86 -o ./bin/$program -d ./o/$program.o lib_asm.o ./o/handleInterrupt21.o ./o/_executeProgram.o ./o/printScreen.o ./o/defaultDir.o ./o/printBootScreen.o ./o/readFile.o ./o/writeFile.o  ./o/div.o ./o/mod.o ./o/printChar.o ./o/printString.o ./o/copy.o  ./o/readString.o ./o/readSector.o ./o/writeSector.o ./o/printline.o ./o/getDirIndex.o ./o/getPathIndex.o ./o/clear.o ./o/clearScreen.o ./o/strLen.o ./o/strComp.o ./o/strCompLimit.o ./o/executeProgram.o
     done
 
 
 bcc -ansi -c -o ./o/shell.o ./programs/shell.c
 
-ld86 -o ./bin/shell -d ./o/shell.o lib_asm.o ./o/readFile.o ./o/writeFile.o  ./o/div.o ./o/mod.o ./o/printChar.o ./o/printString.o ./o/copy.o ./o/readString.o ./o/readSector.o ./o/writeSector.o ./o/printline.o ./o/getDirIndex.o ./o/getPathIndex.o ./o/clear.o ./o/clearScreen.o ./o/strLen.o ./o/strComp.o ./o/strCompLimit.o ./o/executeProgram.o
+ld86 -o ./bin/shell -d ./o/shell.o lib_asm.o ./o/handleInterrupt21.o ./o/_executeProgram.o ./o/printScreen.o ./o/defaultDir.o ./o/printBootScreen.o ./o/readFile.o ./o/writeFile.o  ./o/div.o ./o/mod.o ./o/printChar.o ./o/printString.o ./o/copy.o ./o/readString.o ./o/readSector.o ./o/writeSector.o ./o/printline.o ./o/getDirIndex.o ./o/getPathIndex.o ./o/clear.o ./o/clearScreen.o ./o/strLen.o ./o/strComp.o ./o/strCompLimit.o ./o/executeProgram.o
 
 cd bin
 

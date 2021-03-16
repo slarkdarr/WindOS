@@ -1,9 +1,3 @@
-// loadFile.c
-// Michael Black, 2007
-//
-// Loads a file into the file system
-// This should be compiled with gcc and run outside of the OS
-
 #include <stdio.h>
 
 void main(int argc, char* argv[]) {

@@ -25,7 +25,7 @@ int main(){
         else{
             cD[0] = idx;
             // printString(&args[32]);
-            // printString(" telah dimasuki\r\n");
+            // printString("got in\r\n");
             writeSector(cD,0x104);
         }
     }

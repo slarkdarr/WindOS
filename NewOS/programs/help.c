@@ -11,7 +11,7 @@ int main(){
     printline("- cat [file]");
     printline("- cd [path or directory]");
     printline("- echo [text]");
-    printline("- editor [optional file]");
+    printline("- wim [optional file]");
 
     printString("\r\n");
     executeProgram("shell\0",0x2000,&ints,0xFF);
