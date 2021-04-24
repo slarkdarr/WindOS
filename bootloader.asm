@@ -2,12 +2,12 @@
 ;Michael Black, 2007
 ;Modified by Asisten Sister, 2021
 
-;This is a simple bootloader that loads and executes a kernel at sector 1
+;This is a simple bootloader that loads and executes a kernel at sector 3
 
 	bits 16
 KSEG	equ	0x1000		;Lokasi kernel = 0x10000
-KSIZE	equ	10		;Ukuran kernel = 10 sektor
-KSTART	equ	1		;Lokasi kernel = sektor 1
+KSIZE	equ	16		;Ukuran kernel = 10 sektor
+KSTART	equ	1		;Lokasi kernel = sektor 3
 
 	;boot loader starts at 0 in segment 0x7c00
 	org 0h
